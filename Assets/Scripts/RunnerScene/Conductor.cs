@@ -21,7 +21,7 @@ public class Conductor : MonoBehaviour
 	{
 		gameObject.SetActive(true);
 		Touch.onFingerDown += One;
-		text.text = "WELCOME TO new era plinko!";
+		text.text = "WELCOME TO Plimko Celestial!";
 	}
 
 	private void One(Finger finger)
