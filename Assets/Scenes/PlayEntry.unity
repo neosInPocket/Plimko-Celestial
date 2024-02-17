@@ -294,7 +294,7 @@ RectTransform:
   m_AnchorMin: {x: 0.33333334, y: 0.44734192}
   m_AnchorMax: {x: 0.6666667, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -39.17216, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &39372738
 MonoBehaviour:
@@ -317,7 +317,7 @@ MonoBehaviour:
   skillImage: {fileID: 969756179}
   skillIndex: 1
   cost: 5
-  description: 2
+  description: increases ball speed
 --- !u!114 &39372739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -482,7 +482,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &166465272
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1354,7 +1354,7 @@ RectTransform:
   m_AnchorMin: {x: 0.7762371, y: 0.2013289}
   m_AnchorMax: {x: 0.7762371, y: 0.7986711}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 135.14458, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &409164024
 MonoBehaviour:
@@ -2238,7 +2238,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 89.5
+  m_fontSize: 73.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2465,10 +2465,10 @@ RectTransform:
   - {fileID: 1022597969}
   m_Father: {fileID: 166465272}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.063857146, y: 0.10823811}
-  m_AnchorMax: {x: 0.93614286, y: 0.27655652}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.0662726, y: 0.128}
+  m_AnchorMax: {x: 0.9337274, y: 0.24900001}
+  m_AnchoredPosition: {x: 0, y: 0.00012207031}
+  m_SizeDelta: {x: 0, y: 0.000061035156}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &601432512
 MonoBehaviour:
@@ -2513,7 +2513,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 601432513}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1692070490}
+        m_TargetAssemblyTypeName: ViewController, Assembly-CSharp
+        m_MethodName: Game
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &601432513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2679,7 +2691,7 @@ RectTransform:
   m_AnchorMin: {x: 0.6666667, y: 0.44734192}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -39.17213, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &672350138
 MonoBehaviour:
@@ -2702,7 +2714,7 @@ MonoBehaviour:
   skillImage: {fileID: 2024300746}
   skillIndex: 2
   cost: 7
-  description: 3
+  description: decreases timer time by 2 seconds
 --- !u!114 &672350139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2769,7 +2781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillText: {fileID: 1036531953}
-  cost: 25
+  cost: 10
   costText: {fileID: 990320054}
   status: {fileID: 942838914}
   coinsViewManager: {fileID: 474227560}
@@ -4085,7 +4097,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -0.000061035156, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -0.000030517578, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1030909308
 MonoBehaviour:
@@ -4443,7 +4455,7 @@ RectTransform:
   m_AnchorMin: {x: 0.559, y: 0}
   m_AnchorMax: {x: 0.6591631, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: -142.35272}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1056769687
 MonoBehaviour:
@@ -4692,7 +4704,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5462804, y: 0}
   m_AnchorMax: {x: 0.70400006, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: -74.91345}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1101170594
 MonoBehaviour:
@@ -5102,7 +5114,7 @@ RectTransform:
   m_AnchorMin: {x: 0.009322801, y: 0.69674414}
   m_AnchorMax: {x: 0.9906772, y: 0.6967441}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 395.5114}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1276011923
 MonoBehaviour:
@@ -5273,7 +5285,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1302541459
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5480,7 +5492,7 @@ RectTransform:
   m_AnchorMin: {x: 0.11823793, y: 0.22582346}
   m_AnchorMax: {x: 0.30200002, y: 0.7741765}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -0.0000076293945, y: 6.233955}
+  m_SizeDelta: {x: -0.0000076293945, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1360441589
 MonoBehaviour:
@@ -5654,7 +5666,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 78.48044, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -5888,7 +5900,7 @@ RectTransform:
   m_AnchorMin: {x: 0.104, y: 0.22582346}
   m_AnchorMax: {x: 0.3298976, y: 0.76754576}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 59.48911}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1519470652
 MonoBehaviour:
@@ -6673,7 +6685,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.44734192}
   m_AnchorMax: {x: 0.33333334, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -39.17216, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1843693037
 MonoBehaviour:
@@ -6696,7 +6708,7 @@ MonoBehaviour:
   skillImage: {fileID: 1014461799}
   skillIndex: 0
   cost: 3
-  description: 1
+  description: DECREASES THE BALL SIZE
 --- !u!114 &1843693038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7008,12 +7020,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db311857740fa594e9d6922e7350fa60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keepData: 0
+  keepData: 1
   defaultData:
     progressValue: 1
-    coins: 123123123
+    coins: 10
     enabledMain: 1
     enabledSFXSounds: 1
+    conductorPassed: 0
     skillPoints: 0
     skills: 000000
 --- !u!4 &1914013776
@@ -7240,7 +7253,7 @@ RectTransform:
   m_AnchorMin: {x: 0.016645502, y: 0.9212798}
   m_AnchorMax: {x: 0.9906772, y: 0.9212798}
   m_AnchoredPosition: {x: 0, y: -129}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 322.46}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1947317393
 MonoBehaviour:
@@ -7686,7 +7699,7 @@ RectTransform:
   m_AnchorMin: {x: 0.11823793, y: 0.22582346}
   m_AnchorMax: {x: 0.30200002, y: 0.7741765}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -0.0000076293945, y: 27.68791}
+  m_SizeDelta: {x: -0.0000076293945, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2108433245
 MonoBehaviour:
@@ -7772,8 +7785,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1301892859}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.82800007}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.0367941, y: 0.85}
+  m_AnchorMax: {x: 0.9632059, y: 0.97200006}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7840,7 +7853,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}

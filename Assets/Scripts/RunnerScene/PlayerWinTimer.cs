@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,13 +16,13 @@ public class PlayerWinTimer : MonoBehaviour
 	}
 
 	private bool _enabled;
-
+	public Action TimeEnd { get; set; }
 
 	public void SetTime(int secondsToRun)
 	{
 		allSeconds = secondsToRun;
 		secondsLeft = secondsToRun;
-		seconds.text = ((int)(secondsLeft)).ToString();
+		seconds.text = ((int)(secondsLeft)).ToString() + "s";
 		timer.fillAmount = 1f;
 	}
 
@@ -35,6 +36,12 @@ public class PlayerWinTimer : MonoBehaviour
 	private void Tick()
 	{
 		secondsLeft -= Time.deltaTime;
+		if (secondsLeft <= 0)
+		{
+			_enabled = false;
+			TimeEnd?.Invoke();
+		}
+
 		RefreshVisuals();
 	}
 

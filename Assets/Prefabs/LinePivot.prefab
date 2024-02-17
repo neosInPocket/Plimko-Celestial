@@ -80,7 +80,7 @@ LineRenderer:
   - {x: 0, y: 1, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.26949602
+    widthMultiplier: 0.2
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -98,17 +98,17 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 1, g: 0, b: 0, a: 1}
+      key1: {r: 1, g: 0.8700229, b: 0, a: 1}
+      key2: {r: 1, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 65535
-      ctime2: 0
+      ctime1: 32768
+      ctime2: 65535
       ctime3: 0
       ctime4: 0
       ctime5: 0
@@ -123,8 +123,8 @@ LineRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
-      m_NumColorKeys: 2
+      m_ColorSpace: 0
+      m_NumColorKeys: 3
       m_NumAlphaKeys: 2
     numCornerVertices: 10
     numCapVertices: 0
@@ -135,7 +135,7 @@ LineRenderer:
     generateLightingData: 0
   m_MaskInteraction: 0
   m_UseWorldSpace: 0
-  m_Loop: 1
+  m_Loop: 0
   m_ApplyActiveColorSpace: 1
 --- !u!68 &8609893721862807199
 EdgeCollider2D:
@@ -146,7 +146,7 @@ EdgeCollider2D:
   m_GameObject: {fileID: 218848613016608150}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 54d1378dfa7d7b34ba1e8846b35a4f22, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -228,4 +228,37 @@ MonoBehaviour:
   pivot: {fileID: 3172387874395603417}
   randomRotationSpeedsPositive: {x: 70, y: 120}
   deltaThetaMultiplier: 18
-  scaleSpeed: 0.1
+  scaleSpeed: 0.4
+  widthCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1.133107
+      outSlope: 1.133107
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.21916246
+    - serializedVersion: 3
+      time: 0.34049442
+      value: 0.3080008
+      inSlope: 0.68273836
+      outSlope: 0.68273836
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.0008545
+      value: 0.5
+      inSlope: -0.07601384
+      outSlope: -0.07601384
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.2449948
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

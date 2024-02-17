@@ -1,15 +1,13 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
-using UnityEngine.SceneManagement;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 public class SegmentLevelManager : MonoBehaviour
 {
 	[SerializeField] private Conductor conductor;
 	[SerializeField] private Runner runner;
-	// [SerializeField] private LoseGameScreen loseGameScreen;
+	[SerializeField] private LastEndFrame lastEndFrame;
 	[SerializeField] private TMP_Text valueLevel;
 	[SerializeField] private SegmentSpawner spawner;
 	[SerializeField] private PlayerWinTimer playerTimer;
@@ -24,32 +22,32 @@ public class SegmentLevelManager : MonoBehaviour
 
 		CalculateLevelData();
 
-		//valueLevel.text = SerializeDataView.Data.SerializedData.progressValue.ToString();
-		//playerTimer.SetTime(_timeCanBe);
+		valueLevel.text = "level " + SerializeDataView.Data.SerializedData.progressValue.ToString();
+		playerTimer.SetTime(_timeCanBe);
 
-		// bool conductorPassed = SerializeDataView.Data.SerializedData.conductorPassed;
+		bool conductorPassed = SerializeDataView.Data.SerializedData.conductorPassed;
 
-		// if (!conductorPassed)
-		// {
-		// 	SerializeDataView.Data.SerializedData.conductorPassed = false;
-		// 	SerializeDataView.Data.SaveChanges();
-		// 	Conduction();
-		// }
-		// else
-		// {
-		// 	ConductPassed();
-		// }
+		if (!conductorPassed)
+		{
+			SerializeDataView.Data.SerializedData.conductorPassed = true;
+			SerializeDataView.Data.SaveChanges();
+			Conduction();
+		}
+		else
+		{
+			ConductPassed();
+		}
 	}
 
 	private void Conduction()
 	{
-		// guide.GuideCompleted += GuideEndedHandler;
-		// guide.Guide();
+		conductor.ConductorPassed += ConductPassed;
+		conductor.StartConductor();
 	}
 
 	private void ConductPassed()
 	{
-		// guide.GuideCompleted -= GuideEndedHandler;
+		conductor.ConductorPassed -= ConductPassed;
 		Touch.onFingerDown += OnStart;
 
 	}
@@ -62,45 +60,51 @@ public class SegmentLevelManager : MonoBehaviour
 
 	private void StartLevelPlay()
 	{
-		// playerSpring.OnJumpSuccess += OnPlayerJumpSuccess;
-		// playerSpring.OnDestroyed += OnPlayerDestroyed;
-		// playerSpring.ProvideControls();
+		runner.OnDeath += OnRunnerDeath;
+		playerTimer.TimeEnd += OnTimerValueEnd;
+		playerTimer.Enabled = true;
+
+		runner.EnableControls(true);
+		runner.EnableMoving(true);
+		spawner.Enable(true);
 	}
 
 	private void OnTimerValueEnd()
 	{
-		// playerSpring.OnJumpSuccess -= OnPlayerJumpSuccess;
-		// playerSpring.OnDestroyed -= OnPlayerDestroyed;
+		playerTimer.TimeEnd -= OnTimerValueEnd;
+		runner.OnDeath -= OnRunnerDeath;
 
-		// loseGameScreen.ShowWindowEnd(rubies, "you win!", "you lose...");
-		SerializeDataView.Data.SerializedData.progressValue += 1;
-		SerializeDataView.Data.SerializedData.coins += _coinsRecieved;
-		SerializeDataView.Data.SaveChanges();
+		runner.EnableControls(false);
+		runner.EnableMoving(false);
+		spawner.Enable(false);
+
+		lastEndFrame.EndGameResult(_coinsRecieved);
 	}
 
-	private void OnPlayerCollided()
+	private void OnRunnerDeath()
 	{
-		// playerSpring.OnJumpSuccess -= OnPlayerJumpSuccess;
-		// playerSpring.OnDestroyed -= OnPlayerDestroyed;
+		runner.OnDeath -= OnRunnerDeath;
+		playerTimer.TimeEnd -= OnTimerValueEnd;
+		runner.EnableControls(false);
+		runner.EnableMoving(false);
+		spawner.Enable(false);
 
-		// loseGameScreen.ShowWindowEnd(0, "you win!", "you lose...");
-	}
-
-	public void ReturnToEntryPoint()
-	{
-		SceneManager.LoadScene("PlayEntry");
-	}
-
-	public void ReturnToRunner()
-	{
-		SceneManager.LoadScene("RunnerScene");
+		lastEndFrame.EndGameResult(0);
 	}
 
 	public void CalculateLevelData()
 	{
 		var x = SerializeDataView.Data.SerializedData.progressValue;
 
-		_timeCanBe = (int)(10 * Mathf.Sqrt(x));
+		if (SerializeDataView.Data.SerializedData.skills[2])
+		{
+			_timeCanBe = (int)(10 * Mathf.Sqrt(x)) - 2;
+		}
+		else
+		{
+			_timeCanBe = (int)(10 * Mathf.Sqrt(x));
+		}
+
 		_coinsRecieved = (int)(10 * Mathf.Log(x + 2));
 	}
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.ConstrainedExecution;
 using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
@@ -7,43 +8,81 @@ using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 public class Runner : MonoBehaviour
 {
 	[SerializeField] private CircleCollider2D circleCollider;
+	[SerializeField] private TrailRenderer trailRenderer;
+	[SerializeField] private SpriteRenderer spriteRenderer;
 	[SerializeField] private Rigidbody2D rb;
 	[SerializeField] private float gravityMultiplier;
-	[SerializeField] private float velocity;
+	[SerializeField] private float gravityAmplifierMultiplier;
+	[SerializeField] private Vector2 velocities;
 	[SerializeField] private float jumpMultiplier;
+	[SerializeField] private GameObject deathObject;
+	[SerializeField] private Vector2 sizes;
+	public TrailRenderer Trail => trailRenderer;
 	public float Radius => circleCollider.radius;
-	private Vector2 currentGravity;
 	private bool movingEnabled;
-	private Vector2 currentVelocity;
-	private Vector2 velocityAmplifier;
-	private Vector2 currentGravityDirection;
+	private Vector2 currentGravity;
+	private Vector2 normalSpeed;
+	private Vector2 gravitySpeed;
+	private Vector2 gravitySpeedAmplifier;
+	private float startGravitySpeedAmplifierXDirection;
+	public GameObject startCircle { get; set; }
+	public Action OnDeath { get; set; }
+	private Vector2 screenSize;
+	private float velocity;
 
 	private void Awake()
 	{
+		if (SerializeDataView.Data.SerializedData.skills[0])
+		{
+			spriteRenderer.size = new Vector2(sizes.y, sizes.y);
+			circleCollider.radius = sizes.y / 2;
+		}
+		else
+		{
+			spriteRenderer.size = new Vector2(sizes.x, sizes.x);
+			circleCollider.radius = sizes.x / 2;
+		}
+
+		if (SerializeDataView.Data.SerializedData.skills[1])
+		{
+			velocity = velocities.y;
+		}
+		else
+		{
+			velocity = velocities.x;
+		}
+
+		screenSize = ExtensionScript.ScreenSize;
 		EnhancedTouchSupport.Enable();
 		TouchSimulation.Enable();
-
-		movingEnabled = true;
-		EnableControls(true);
 	}
 
 	private void Update()
 	{
 		if (!movingEnabled) return;
-		currentGravityDirection = new Vector2(transform.position.x / Mathf.Abs(transform.position.x), transform.position.y / Mathf.Abs(transform.position.y));
 
-		if (velocityAmplifier.magnitude > 0)
+		currentGravity = -transform.position.normalized * gravityMultiplier;
+		gravitySpeed = currentGravity + gravitySpeedAmplifier;
+		normalSpeed = CalculateNormal() * velocity;
+		rb.velocity = normalSpeed + gravitySpeed;
+
+		if (gravitySpeedAmplifier.magnitude > 0)
 		{
-			velocityAmplifier -= currentGravityDirection * gravityMultiplier * Time.deltaTime;
-		}
-		else
-		{
-			velocityAmplifier = Vector3.zero;
+			if ((startGravitySpeedAmplifierXDirection > 0 && gravitySpeedAmplifier.x < 0) || (startGravitySpeedAmplifierXDirection < 0 && gravitySpeedAmplifier.x > 0))
+			{
+				gravitySpeedAmplifier = Vector2.zero;
+			}
+			else
+			{
+				gravitySpeedAmplifier -= gravitySpeedAmplifier.normalized / gravityAmplifierMultiplier * Time.deltaTime;
+			}
 		}
 
-		Debug.Log(velocityAmplifier);
-		currentVelocity = CalculateNormal() * velocity + velocityAmplifier;
-		rb.velocity = currentVelocity;
+		if (transform.position.x < -screenSize.x || transform.position.x > screenSize.x || transform.position.y < -screenSize.y || transform.position.y > screenSize.y)
+		{
+			DestroyRunner();
+			movingEnabled = false;
+		}
 	}
 
 	public void EnableControls(bool value)
@@ -60,10 +99,8 @@ public class Runner : MonoBehaviour
 
 	private void OnRunnerJump(Finger finger)
 	{
-		if (this != null)
-		{
-			velocityAmplifier = (Vector2)transform.position.normalized * jumpMultiplier;
-		}
+		gravitySpeedAmplifier = -currentGravity * jumpMultiplier;
+		startGravitySpeedAmplifierXDirection = gravitySpeedAmplifier.x / Mathf.Abs(gravitySpeedAmplifier.x);
 	}
 
 	public void EnableMoving(bool value)
@@ -73,16 +110,35 @@ public class Runner : MonoBehaviour
 
 	private Vector2 CalculateNormal()
 	{
-		return new Vector2(transform.position.y, -transform.position.x).normalized;
+		var x = transform.position.y;
+		var y = -transform.position.x;
+		return new Vector2(x, y).normalized;
 	}
 
-	private void OnTriggerEnter2D()
+	private void OnTriggerEnter2D(Collider2D collider)
 	{
+		if (collider.TryGetComponent<DeathPoint>(out DeathPoint component))
+		{
+			DestroyRunner();
+		}
+	}
 
+	private void DestroyRunner()
+	{
+		deathObject.SetActive(true);
+		spriteRenderer.enabled = false;
+		movingEnabled = false;
+		OnDeath?.Invoke();
 	}
 
 	private void OnDestroy()
 	{
 		Touch.onFingerDown -= OnRunnerJump;
+	}
+
+	private void OnDrawGizmos()
+	{
+		Gizmos.color = Color.red;
+		Gizmos.DrawLine(transform.position, transform.position + (Vector3)CalculateNormal() * velocity);
 	}
 }
