@@ -6,6 +6,9 @@ using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 public class Conductor : MonoBehaviour
 {
+	[SerializeField] private GameObject runnerArrow;
+	[SerializeField] private GameObject timerArrow;
+	[SerializeField] private GameObject auraArrow;
 	public Action ConductorPassed { get; set; }
 	[SerializeField] private TMP_Text text;
 	private void Start()
@@ -17,43 +20,52 @@ public class Conductor : MonoBehaviour
 	public void StartConductor()
 	{
 		gameObject.SetActive(true);
-		Touch.onFingerDown += Play;
+		Touch.onFingerDown += One;
 		text.text = "WELCOME TO new era plinko!";
 	}
 
-	private void Play(Finger finger)
+	private void One(Finger finger)
 	{
-		Touch.onFingerDown -= Play;
-		Touch.onFingerDown += Play1;
+		Touch.onFingerDown -= One;
+		Touch.onFingerDown += Two;
 		text.text = "control the ball as it moves in a circle!";
+		runnerArrow.SetActive(true);
 	}
 
-	private void Play1(Finger finger)
+	private void Two(Finger finger)
 	{
-		Touch.onFingerDown -= Play1;
-		Touch.onFingerDown += Play2;
+		Touch.onFingerDown -= Two;
+		Touch.onFingerDown += Three;
 		text.text = "tap the screen to make it jump. Dodge oncoming obstacles to complete the level!";
+		runnerArrow.SetActive(false);
 	}
 
-	private void Play2(Finger finger)
+	private void Three(Finger finger)
 	{
-		Touch.onFingerDown -= Play2;
-		Touch.onFingerDown += Play3;
+		Touch.onFingerDown -= Three;
+		Touch.onFingerDown += Four;
 		text.text = "if your ball reaches the blue aura or screen edge, then you will lose. hold out until time runs out!";
+		timerArrow.SetActive(true);
+		auraArrow.SetActive(true);
 	}
 
-	private void Play3(Finger finger)
+	private void Four(Finger finger)
 	{
-		Touch.onFingerDown -= Play3;
-		Touch.onFingerDown += PlatEnd;
+		Touch.onFingerDown -= Four;
+		Touch.onFingerDown += GameEnd;
 		text.text = "Do you have enough reaction to complete the level? Let's check! Tap the screen to start";
+		timerArrow.SetActive(false);
+		auraArrow.SetActive(false);
 	}
 
-	private void PlatEnd(Finger finger)
+	private void GameEnd(Finger finger)
 	{
-		Touch.onFingerDown -= PlatEnd;
+		Touch.onFingerDown -= GameEnd;
 		ConductorPassed?.Invoke();
 
-		gameObject.SetActive(false);
+		if (this != null)
+		{
+			gameObject.SetActive(false);
+		}
 	}
 }

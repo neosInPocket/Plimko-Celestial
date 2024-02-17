@@ -11,6 +11,7 @@ public class SegmentLevelManager : MonoBehaviour
 	[SerializeField] private TMP_Text valueLevel;
 	[SerializeField] private SegmentSpawner spawner;
 	[SerializeField] private PlayerWinTimer playerTimer;
+	[SerializeField] private GameObject startGameText;
 
 	private int _coinsRecieved;
 	private int _timeCanBe;
@@ -49,11 +50,12 @@ public class SegmentLevelManager : MonoBehaviour
 	{
 		conductor.ConductorPassed -= ConductPassed;
 		Touch.onFingerDown += OnStart;
-
+		startGameText.SetActive(true);
 	}
 
 	private void OnStart(Finger finger)
 	{
+		startGameText.SetActive(false);
 		Touch.onFingerDown -= OnStart;
 		StartLevelPlay();
 	}
